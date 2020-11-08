@@ -10,3 +10,18 @@
 p {
    
 }
+
+#cheat {
+    position: absolute;
+    width: 50%;
+    bottom: 25px;
+    left: 50%;
+    border: 0px solid #8AC007;
+    font-size: xx-small;
+    text-align: center;
+    
+}
+
+#print {
+    font-size: 15px;
+}
