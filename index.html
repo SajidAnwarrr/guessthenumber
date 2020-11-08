@@ -1,0 +1,136 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script>
+        window.onload = function() {
+            document.getElementById("mainButton").addEventListener("click" , playGame);
+            document.getElementById("resetButton").addEventListener("click" , resetGame);
+            
+        }
+    
+        let correctNumber = getRandomNumber();
+        console.log(correctNumber);
+        
+        let guesses = [];
+
+        function displayHistory() {
+            let index = guesses.length - 1;
+            let list = "<ul class='list-group'>";
+            while (index >= 0) {
+                list += "<li class='list-group-item'>" + "You guessed" + " " + guesses[index] + "</ul>";
+                index-=1;
+            }
+            list += '</ul>';
+            document.getElementById("history").innerHTML = list;
+        }
+
+        function getRandomNumber() {
+            let randomNumber = Math.random();
+            let wholeNumber = Math.floor(randomNumber * 100 + 1);
+            return wholeNumber;
+        }
+        
+        function playGame() {
+            let mainGuess = document.getElementById('numberGuess').value;
+            displayResult(mainGuess);
+            saveGuessesHistory(mainGuess);
+            displayResult(mainGuess);
+            displayHistory();
+
+        }
+
+        function displayResult (mainGuess) {
+
+            if (mainGuess > correctNumber) {
+                showYouhigh();
+            }
+            else if (mainGuess < correctNumber) {
+                showYoulose();
+            }
+            else if (mainGuess == correctNumber) {
+                showYouWon();
+            }
+            else {
+                console.log("only number allowed!");
+            }
+        }
+        
+    
+        function getDialog(dialogType , text) {
+            let dialog;
+            switch (dialogType) {
+                case "warning":
+                dialog = "<div class = 'alert alert-warning' role = 'alert'>"
+                break;
+                case "light":
+                dialog = "<div class = 'alert alert-light' role = 'light'>"
+                break;
+                case "won":
+                dialog = "<div class = 'alert alert-success' role = 'success'>"
+                break;
+            }
+            dialog += text;
+            dialog += "</div>";
+            return dialog;
+
+        }
+
+        function saveGuessesHistory(guess) {
+            guesses.push(guess);
+            
+            
+        }
+
+      
+
+        function resetGame() {
+            document.getElementById("result").innerHTML= "";
+            guesses = [];
+            displayHistory();
+            
+        }
+
+        function showYouWon () {
+            const text = "Awesome you got it";
+
+            let dialog = getDialog('won' , text);
+            document.getElementById('result').innerHTML = dialog;
+        }
+
+        function showYouhigh () {
+            const text = "too high";
+
+            let dialog = getDialog('warning' , text);
+            document.getElementById('result').innerHTML = dialog;
+        }
+
+        function showYoulose () {
+            const text = "too low";
+
+            let dialog = getDialog('light' , text);
+            document.getElementById('result').innerHTML = dialog;
+        }
+
+        
+    </script>
+    <title>GTN</title>
+    </head>
+    <body>
+        <div id= 'fix'>
+        <h1>Guess The Number!</h1>
+        <p >created by <a href="https://www.facebook.com/SajidAnwarrr" target="_blank">Sajid Anwar</a></p>
+        <input type="text" id = "numberGuess" placeholder="Guess Your Number">
+        <button id="mainButton" class="btn btn-primary">Click</button>
+        <button id="resetButton" class="btn btn-default">Reset</button>
+        <div id="result"></div>
+        <div id=history></div>
+        <p id=demo2></p>
+        <p id=demo3></p>
+        <h6>open console log in your browser</h6>
+        </div>
+        
+
+    </body>
+</html>
